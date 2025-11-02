@@ -11,10 +11,9 @@ import { Input } from '@/components/ui/input.tsx';
 import { Checkbox } from '@/components/ui/checkbox.tsx';
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner.tsx';
 import { ErrorMessage } from '@/components/shared/ErrorMessage.tsx';
-import { signIn } from '@/store/authSlice.ts';
 import type { RootState, AppDispatch } from '@/store/store.ts';
-import { clearError } from '@/store/authSlice.ts';
-import { ROUTES } from '@/constants/colors.ts';
+import { clearError, signIn } from '@/store/authSlice.ts';
+import { ROUTES } from '@/constants/routes.ts';
 // Xác thực dữ liệu form
 const signInSchema = z.object({
   username: z.string().min(3, 'Login name must be at least 3 characters'),
@@ -27,16 +26,14 @@ type SignInForm = z.infer<typeof signInSchema>;
 //setup component SignIn
 const SignIn = () => {
   const [showPassword, setShowPassword] = React.useState(false);
-  //Hook từ react-router-dom để điều hướng page
   const navigate = useNavigate();
-  //gửi credentials đến BE,xóa error state
   const dispatch = useDispatch<AppDispatch>();
   const { isLoading, error } = useSelector((state: RootState) => state.auth);
-// Thêm useEffect
   React.useEffect(() => {
     dispatch(clearError());
   }, [dispatch]);
-  //Setup Form Với React Hook Form & Zod
+
+  //destructuring
   const {
     register,
     handleSubmit,
@@ -45,6 +42,7 @@ const SignIn = () => {
   //Hook khởi tạo form với type SignInForm
   = useForm<SignInForm>({
     resolver: zodResolver(signInSchema),
+    //validate ngay khi người dùng nhập
     mode: 'onChange',
     defaultValues: {
       username: '',
