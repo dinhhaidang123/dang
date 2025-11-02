@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes.ts';
 
 // Pages
-import HomePage from '@/pages/HomePage';
+import HomePage from '@/pages/homepage';
 import SignIn from '@/pages/signin.tsx';
 import SignUp from '@/pages/SignUp/index';
 import Languages from '@/pages/Languages/index';
